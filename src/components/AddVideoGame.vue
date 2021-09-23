@@ -37,6 +37,19 @@
       </div>
 
       <div class="form-group">
+        <label for="review">Review</label>
+        <textarea
+          rows="6"
+          cols="50"
+          class="form-control"
+          id="review"
+          required
+          v-model="videoGame.review"
+          name="description"
+        />
+      </div>
+
+      <div class="form-group">
         <label for="genre">Genre</label>
         <input
           class="form-control"
@@ -82,7 +95,8 @@ export default {
         published: false,
         genre: "",
         rating: null,
-        user: ""
+        user: "",
+        review: ""
       },
       submitted: false
     };
@@ -94,13 +108,14 @@ export default {
         description: this.videoGame.description,
         rating: this.videoGame.rating,
         genre: this.videoGame.genre,
-        user: this.videoGame.user
+        user: this.videoGame.user,
+        review: this.videoGame.review
       };
 
       VideoGamesDataService.create(data)
         .then(response => {
           this.videoGame.id = response.data.id;
-          console.log(response.data);
+          //console.log(response.data);
           this.submitted = true;
         })
         .catch(e => {
