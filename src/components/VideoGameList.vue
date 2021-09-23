@@ -51,7 +51,7 @@
         <div>
           <label><strong>User:</strong></label> {{ currentVideoGame.user }}
         </div>        
-        <router-link :to="'/videogamess/' + currentVideoGame.id" class="badge badge-warning">Edit</router-link>
+        <router-link :to="'/videogames/' + currentVideoGame.id" class="badge badge-warning">Edit</router-link>
       </div>
       <div v-else>
         <br />
