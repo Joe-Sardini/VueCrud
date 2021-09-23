@@ -28,6 +28,10 @@ class VideoGamesDataService {
   findByTitle(title) {
     return http.get(`/videoGames?title=${title}`);
   }
+
+  getAllByUser(user) {
+    return http.get(`/videoGames/user/${user}`);
+  }
 }
 
 export default new VideoGamesDataService();

@@ -10,6 +10,7 @@
           >
             Search
           </button>
+          By User<input type="checkbox" ref="byUser" id="byUser" :v-model="byUser" >
         </div>
       </div>
     </div>
@@ -38,6 +39,9 @@
         </div>
         <div>
           <label><strong>Description:</strong></label> {{ currentVideoGame.description }}
+        </div>
+        <div>
+          <label><strong>Review:</strong></label> {{ currentVideoGame.review }}
         </div>
         <div>
           <label><strong>Status:</strong></label> {{ currentVideoGame.published ? "Published" : "Pending" }}
@@ -71,16 +75,15 @@ export default {
       videogames: [],
       currentVideoGame: null,
       currentIndex: -1,
-      title: ""
+      title: "",
+      byUser: false
     };
   },
   methods: {
     retrievevideogames() {
-      console.log("File");
       VideoGamesDataService.getAll()
         .then(response => {
           this.videogames = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -100,8 +103,7 @@ export default {
 
     removeAllVideoGames() {
       VideoGamesDataService.deleteAll()
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           this.refreshList();
         })
         .catch(e => {
@@ -110,14 +112,26 @@ export default {
     },
     
     searchTitle() {
-      VideoGamesDataService.findByTitle(this.title)
-        .then(response => {
-          this.videogamess = response.data;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      let searchByTitle = true;
+      (this.$refs.byUser.checked) ? searchByTitle = true : searchByTitle = false;
+
+      if (searchByTitle) {
+        VideoGamesDataService.findByTitle(this.title)
+          .then(response => {
+            this.videogames = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }else{
+        VideoGamesDataService.getAllByUser(this.title)
+          .then(response => {
+            this.videogames = response.data;
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      }
     }
   },
   mounted() {

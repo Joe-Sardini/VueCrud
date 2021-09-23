@@ -16,6 +16,13 @@
       </div>
 
       <div class="form-group">
+        <label for="review">Review</label>
+        <textarea class="form-control" id="review"
+          v-model="currentVideoGame.review"
+        />
+      </div>
+
+      <div class="form-group">
         <label><strong>Status:</strong></label>
         {{ currentVideoGame.published ? "Published" : "Pending" }}
       </div>
@@ -69,7 +76,6 @@ export default {
       VideoGamesDataService.get(id)
         .then(response => {
           this.currentVideoGame = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -81,13 +87,13 @@ export default {
         id: this.currentVideoGame.id,
         title: this.currentVideoGame.title,
         description: this.currentVideoGame.description,
+        review: this.currentVideoGame.review,
         published: status
       };
 
       VideoGamesDataService.update(this.currentVideoGame.id, data)
-        .then(response => {
+        .then(() => {
           this.currentVideoGame.published = status;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -96,8 +102,7 @@ export default {
 
     updateVideoGame() {
       VideoGamesDataService.update(this.currentVideoGame.id, this.currentVideoGame)
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           this.message = 'The video game was updated successfully!';
         })
         .catch(e => {
@@ -107,8 +112,7 @@ export default {
 
     deleteVideoGame() {
       VideoGamesDataService.delete(this.currentVideoGame.id)
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           this.$router.push({ name: "videogame" });
         })
         .catch(e => {
