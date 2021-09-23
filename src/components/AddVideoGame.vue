@@ -16,6 +16,7 @@
       <div class="form-group">
         <label for="rating">Rating</label>
         <input
+          type="number"
           class="form-control"
           id="rating"
           required
