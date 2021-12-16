@@ -20,6 +20,9 @@
             <li class="nav-item">
                 <router-link to="/steamgames" class="nav-link">Steam Games</router-link>
             </li>
+            <li class="nav-item">
+                <router-link to="/emulatorgames" class="nav-link">Emulator Games</router-link>
+            </li>
         </div>
         </nav>
         <div class="container mt-3">
