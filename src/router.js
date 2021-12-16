@@ -36,5 +36,10 @@ export default new Router({
       name: "steamgames",
       component: () => import("./components/SteamGames")
     },
+    {
+      path: "/emulatorgames",
+      name: "emulatorgames",
+      component: () => import("./components/Emulator/EmulatorGameLanding")
+    },
   ]
 });
